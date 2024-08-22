@@ -137,6 +137,8 @@ if(menuLinks.length > 0){
 
 // перемикання кольорових схем
 
+const lightStyles = document.querySelectorAll('link[rel=stylesheet][media*=prefers-color-scheme][media*=light');
+const darkStyles = document.querySelectorAll('link[rel=stylesheet][media*=prefers-color-scheme][media*=dark');
 const darkSchemeMedia = matchMedia('(prefers-color-scheme: dark)');
 const switcherRadios = document.querySelectorAll('.switcher__radio');
 
@@ -177,15 +179,24 @@ function setScheme(scheme) {
 };
 
 function switchMedia(scheme) {
+  let lightMedia;
+  let darkMedia;
 
-  if (scheme ==='auto') {
-    document.body.classList.remove('light', 'dark');
-    const bodyClass = darkSchemeMedia.matches ? 'dark' : 'light';
-    document.body.classList.add(bodyClass);
+  if (scheme === 'auto') {
+    lightMedia = '(prefers-color-scheme: light)';
+    darkMedia = '(prefers-color-scheme: dark)';
   } else {
-    document.body.classList.remove('light', 'dark');
-    document.body.classList.add(scheme);
-  } 
+    lightMedia = (scheme === 'light') ? 'all' : 'not all';
+    darkMedia = (scheme === 'dark') ? 'all' : 'not all';    
+  };
+
+  [...lightStyles].forEach((link) => {
+    link.media = lightMedia;
+  });
+
+  [...darkStyles].forEach((link) => {
+    link.media = darkMedia;
+  });
   
 };
 
