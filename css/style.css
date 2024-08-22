@@ -79,6 +79,15 @@ h1, h2, h3, h4, h5, h6 {
     --headerIconBgClr: #ffffff;
     --mainTxtClr: #ffffff;
   }
+  .switcher__radio {
+    filter: invert(1);
+  }
+  .switcher__radio:checked {
+    filter: invert(0);
+  }
+  .switcher__status {
+    filter: invert(1);
+  }
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -87,7 +96,48 @@ h1, h2, h3, h4, h5, h6 {
     --headerIconBgClr: #3a3131;
     --mainTxtClr: #000000;
   }
+  .switcher__radio {
+    filter: invert(0);
+  }
+  .switcher__radio:checked {
+    filter: invert(1);
+  }
+  .switcher__status {
+    filter: invert(0);
+  }
 }
+.light {
+  --headerBgColor: #ffffff;
+  --headerMenuItemTxtClr: #808080;
+  --headerIconBgClr: #3a3131;
+  --mainTxtClr: #000000;
+}
+.light .switcher__radio {
+  filter: invert(0);
+}
+.light .switcher__radio:checked {
+  filter: invert(1);
+}
+.light .switcher__status {
+  filter: invert(0);
+}
+
+.dark {
+  --headerBgColor: #808080;
+  --headerMenuItemTxtClr: #ffffff;
+  --headerIconBgClr: #ffffff;
+  --mainTxtClr: #ffffff;
+}
+.dark .switcher__radio {
+  filter: invert(1);
+}
+.dark .switcher__radio:checked {
+  filter: invert(0);
+}
+.dark .switcher__status {
+  filter: invert(1);
+}
+
 body {
   height: 100%;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -160,10 +210,79 @@ body.__lock {
 }
 .header__menu__icon.theme {
   position: relative;
-  width: 20px;
-  height: 20px;
-  background-color: #fff;
-  border-radius: 50%;
+  width: 100px;
+  height: 32px;
+  border-radius: 6px;
+  /* Switcher */
+  /* Switcher Legend*/
+  /* Switcher Radio*/
+  /*Switcher Status*/
+}
+.header__menu__icon.theme .switcher {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: none;
+}
+.header__menu__icon.theme .switcher__legend {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.header__menu__icon.theme .switcher__radio {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  margin: 0;
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+  transition: filter 0.1s ease-in;
+}
+.header__menu__icon.theme .switcher__radio:focus {
+  outline: none;
+}
+.header__menu__icon.theme .switcher__radio--light {
+  background-image: url("../img/sun_icon.svg");
+}
+.header__menu__icon.theme .switcher__radio--light:checked ~ .switcher__status {
+  background-position: left 0px center;
+}
+.header__menu__icon.theme .switcher__radio--auto {
+  background-image: url("../img/circle_icon.svg");
+}
+.header__menu__icon.theme .switcher__radio--auto:checked ~ .switcher__status {
+  background-position: center center;
+}
+.header__menu__icon.theme .switcher__radio--dark {
+  background-image: url("../img/moon_icon.svg");
+}
+.header__menu__icon.theme .switcher__radio--dark:checked ~ .switcher__status {
+  background-position: right 0px center;
+}
+.header__menu__icon.theme .switcher__status {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  z-index: -1;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+  border-radius: 18px;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-repeat: no-repeat;
+  background-image: url("../img/circle_full_icon.svg");
+  background-size: 32px;
+  background-position: center;
+  transition: background-position 0.1s ease-in;
+}
+.header__menu__icon.theme .switcher__radio:focus-visible ~ .switcher__status {
+  box-shadow: 0 0 0 2px #000000;
 }
 .header__menu__icon.burger {
   display: none;
@@ -256,6 +375,14 @@ body.__touch .header__menu__list > li.__active .header__menu__item__arrow {
   .header__menu__list > li {
     padding: 10px 0;
   }
+  .header__menu__list > li:last-child {
+    display: flex;
+  }
+  .header__menu__list > li:last-child div.lang {
+    margin: 0 20px 0 20px;
+    cursor: pointer;
+    align-self: center;
+  }
   .header__menu__sub-list {
     transform: translate(0px, 10%);
     opacity: 0;
@@ -305,6 +432,9 @@ body.__touch .header__menu__list > li.__active .header__menu__item__arrow {
     bottom: 50%;
     transform: rotate(45deg) translate(0px, 50%);
   }
+  .header__menu__icon.theme .switcher__radio {
+    height: 40px;
+  }
   .header__menu__body {
     position: fixed;
     top: 0;
@@ -335,6 +465,11 @@ body.__touch .header__menu__list > li.__active .header__menu__item__arrow {
   }
   .header__menu__list > li:last-child {
     margin: 0 0 0 0;
+  }
+  .header__menu__list > li:last-child div {
+    margin: 0 20px 0 0;
+    min-width: 40px;
+    height: 40px;
   }
   .header__menu__list > li.__active .header__menu__sub-list {
     display: block;
