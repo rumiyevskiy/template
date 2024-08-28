@@ -16,3 +16,9 @@
 .switcher__status {
     filter: invert(1);
 }
+
+.header__menu__icon.burger span, 
+.header__menu__icon.burger::before, 
+.header__menu__icon.burger::after {
+    filter: invert(0);
+}
