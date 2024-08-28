@@ -137,8 +137,8 @@ if(menuLinks.length > 0){
 
 // перемикання кольорових схем
 
-const lightStyles = document.querySelectorAll('link[rel=stylesheet][media*=prefers-color-scheme][media*=light');
-const darkStyles = document.querySelectorAll('link[rel=stylesheet][media*=prefers-color-scheme][media*=dark');
+const lightStyles = document.querySelectorAll('link[rel=stylesheet][media*=prefers-color-scheme][media*=light]');
+const darkStyles = document.querySelectorAll('link[rel=stylesheet][media*=prefers-color-scheme][media*=dark]');
 const darkSchemeMedia = matchMedia('(prefers-color-scheme: dark)');
 const switcherRadios = document.querySelectorAll('.switcher__radio');
 
@@ -159,7 +159,9 @@ function setupSwitcher() {
 
 function setupScheme() {
   const savedScheme = getSavedScheme();
+  console.log('savedScheme: ', savedScheme);
   const systemScheme = getSystemScheme();
+  console.log('systemScheme: ', systemScheme);
 
   if (savedScheme === null) return;
 
