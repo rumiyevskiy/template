@@ -6,11 +6,11 @@
     <title>Template</title>
 
     <script>
-        if (matchMedia('(prefers-color-scheme: dark)').media === 'not all') {
+        if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all') {
             document.documentElement.style.display = 'none';
             document.head.insertAdjacentHTML(
                 'beforeend',
-                '<link rel="stylesheet" href="css/light.css"> onload = "document.documentElement.style.display =\'\'">' 
+                '<link rel="stylesheet" href="css/light.css" onload="document.documentElement.style.display = \'\'">',
             );
         }
     </script>
@@ -93,7 +93,7 @@
 
                             <li>
 
-                                <a href="#" class="header__menu__item">Сторінка 2</a>
+                                <a  data-goto='.footer' href="#" class="header__menu__item">Footer</a>
 
                             </li>
 
@@ -144,26 +144,45 @@
             <section class="page__section conteiner page__section-1">
 
                 <h2 class="page__section__title">Section 1</h2>
+                <h2 class="test">Section 1</h2>
 
                 <div class="page__section__text">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
+                    <p>Тут використовується адаптивний розмір шрифту для заголовка. Представлено дві версії. перша - адаптивна, друга - статична (не змінна). При зміні розміру екрану перша буде мінятись, друга ні.</p>
+                    <pre>
+font-size: calc(24px + 16 * ((100vw - 320px) / (1280 - 320)));
+	тут:
+		24px - це розмір шрифту по макету при мобільній версії сторінки, або, якщо немає макету на мобільну версію,
+                то це мінімальний розмір шрифту при мобільному варіанті сторінки який ми сами обираємо в браузері використовуючи
+                інструменти розробника і там змінюючи розмір шрифта до оптимального розміру. 
+		16 - це різниця між розмірами шрифту по макету між десктопною та мобільною версіями.
+		100vw - ширина viewport, тобто ширина екрана.
+		320px - мінімальний розмір екрана мобільної версії
+		1280 - це ширина сторінки по макету
+		320 - мінімальний розмір екрана мобільної версії
+
+для scss :
+
+$maxWidth: 1200;
+
+@mixin adaptiv-font($pcSize, $mobSize) {
+ $addSize: $pcSize - $mobSize;
+ $maxWidth: $maxWidth - 320;
+ font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+.page__section__title {
+    @include adaptiv-font(40, 24);
+    margin: 0 0 10px 0;
+}
+	тут:
+		$maxWidth - розмір сторінки по макету.
+		$pcSize - розмір шрифту для пк версії.
+		$mobSize - розмір шрифту для мобільної версії.
+		@include adaptive-font(40, 24) - це підключення адаптивної властивості для  css файлу для елементу з класом .page__section__title через 
+                міксини (scss) з вказівкою у дужках розмірів: 40 - для пк версії, 24 - для мобільної версії
+                    </pre>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum libero ab voluptatem magni, dolores nisi vel nam totam optio iure.</p>
+                    
                 </div>
 
             </section>
@@ -239,6 +258,1053 @@
                 </div>
 
             </section>
+
+            <section class="page__section conteiner page__section-4">
+                <h2 class="text__title title">Адаптивні зображення</h2>
+                <h2 class="text__title title">В тексті</h2>
+                <h2 class="text__title title">Style for img - no have any style</h2>
+                <div class="text__image">
+                    <img src="/img/1300x400.jpg" alt="">
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cumque optio assumenda tenetur, pariatur harum nihil excepturi numquam dicta odit repellendus nisi fugit, reiciendis architecto dignissimos laboriosam ducimus a? Doloremque consequuntur sed repellat blanditiis adipisci unde quae commodi quasi earum, quos porro fugit culpa eius, natus illum sapiente sunt rem!</p>
+                <div class="text__image">
+                    <img src="/img/800x400.jpg" alt="">
+                </div>
+            </section>
+            
+            <section class="page__section conteiner page__section-5">
+                <h2 class="text__title title">В тексті</h2>
+                <h2 class="text__title title">Style for img - width: 100%</h2>
+                <div class="text__image">
+                    <img src="/img/1300x400.jpg" alt="">
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cumque optio assumenda tenetur, pariatur harum nihil excepturi numquam dicta odit repellendus nisi fugit, reiciendis architecto dignissimos laboriosam ducimus a? Doloremque consequuntur sed repellat blanditiis adipisci unde quae commodi quasi earum, quos porro fugit culpa eius, natus illum sapiente sunt rem!</p>
+                <div class="text__image">
+                    <img src="/img/800x400.jpg" alt="">
+                </div>
+            </section>
+
+            <section class="page__section conteiner page__section-6">
+                <h2 class="text__title title">В тексті</h2>
+                <h2 class="text__title title">Style for img - max-width: 100%</h2>
+                <div class="text__image">
+                    <img src="/img/1300x400.jpg" alt="">
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cumque optio assumenda tenetur, pariatur harum nihil excepturi numquam dicta odit repellendus nisi fugit, reiciendis architecto dignissimos laboriosam ducimus a? Doloremque consequuntur sed repellat blanditiis adipisci unde quae commodi quasi earum, quos porro fugit culpa eius, natus illum sapiente sunt rem!</p>
+                <div class="text__image">
+                    <img src="/img/800x400.jpg" alt="">
+                </div>
+            </section>
+
+            <section class="cards__1">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <h2 class="text__title title">Style for img - no have any style</h2>
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/800x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/400x600.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/1300x200.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__2">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <h2 class="text__title title">Style for img - width: 100%</h2>
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/800x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/400x600.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/1300x200.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__3">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <h2 class="text__title title">Style for img - max-width: 100%</h2>
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/800x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/400x600.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/1300x200.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__4">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <h2 class="text__title title">Style for img </h2>
+                <h2 class="text__title title">max-width: 100%;</h2>
+                <h2 class="text__title title">height: 200px;</h2>
+                <h2 class="text__title title">Style for parent </h2>
+                <h2 class="text__title title">text-align: center;</h2>
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/800x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/400x600.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/1300x200.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__5">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        ...
+         height: 200px;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+        height: 100%;
+     }
+                </pre>
+
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/800x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/400x600.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/1300x200.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__6">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <pre>
+                    <code>
+
+     &ltdiv class="cards__image cards__image-1"&gt
+                            <!-- <img src="img/800x400.jpg" alt=""> -->
+     &lt/div&gt
+     &ltdiv class="cards__image cards__image-2"&gt
+                            <!-- <img src="img/800x400.jpg" alt=""> -->
+     &lt/div&gt
+     &ltdiv class="cards__image cards__image-3"&gt
+                            <!-- <img src="img/800x400.jpg" alt=""> -->
+     &lt/div&gt
+    
+
+    Style for parent
+    .cards__image {
+        ...
+         height: 200px;
+    }
+
+    Style for cards__image-1,2,3
+    .cards__image-1 {
+        background: url("../img/800x400.jpg") center / contain no-repeat;
+    }
+    .cards__image-2 {
+        background: url("../img/400x600.jpg") center / cover no-repeat;
+    }
+    .cards__image-3 {
+         background: url("../img/1300x200.jpg") center / 100% auto no-repeat;
+    }
+                    </code>
+                </pre>
+
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image cards__image-1">
+                                <!-- <img src="img/800x400.jpg" alt=""> -->
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image cards__image-2">
+                                <!-- <img src="img/400x600.jpg" alt=""> -->
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image cards__image-3">
+                                <!-- <img src="img/1300x200.jpg" alt=""> -->
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__7">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        ...
+         height: 200px;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+     }
+                </pre>
+
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/1300x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/fish_1792x1024.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/sweet-3.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__8">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        ...
+         height: 200px;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: none;
+     }
+                </pre>
+
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/800x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/fish_1792x1024.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/sweet-3.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__9">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        ...
+         height: 200px;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+     }
+                </pre>
+
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/800x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/fish_1792x1024.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/sweet-3.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__10">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        ...
+         height: 200px;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: none;
+        object-position: 10px top ;
+     }
+                </pre>
+
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/800x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/fish_1792x1024.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/sweet-3.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards__11">
+                <h2 class="cards__title title">В карточках (три колонки)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        position: relative;
+        padding: 0px 0px 58% 0px;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+     }
+                </pre>
+
+                <div class="cards__row">
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/800x400.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/fish_1792x1024.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards__column">
+                        <div class="cards__item">
+                            <div class="cards__image">
+                                <img src="img/sweet-3.jpg" alt="">
+                            </div>
+                            <div class="cards__body">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam corrupti a voluptatibus autem eaque aut nisi quis ex sequi! Ducimus necessitatibus deleniti mollitia ex dignissimos odio obcaecati totam est nesciunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="items-1">
+                <h2 class="items__title title">В карточках (в ряд)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+
+    }
+    Style for img
+    .cards__image img{
+ 
+    }
+                </pre>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/1300x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/400x600.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                        </div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/800x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="items-2">
+                <h2 class="items__title title">В карточках (в ряд)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        width: 500px;
+    }
+    Style for img
+    .cards__image img{
+ 
+    }
+                </pre>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/1300x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/400x600.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                        </div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/800x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="items-3">
+                <h2 class="items__title title">В карточках (в ряд)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        flex: 0 0 33.333%;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+    }
+                </pre>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/1300x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/400x600.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                        </div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/800x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="items-4">
+                <h2 class="items__title title">В карточках (в ряд)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        flex: 0 0 33.333%;
+    }
+    Style for img
+    .cards__image img{
+        max-width: 100%;
+    }
+                </pre>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/1300x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/400x600.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                        </div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/800x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="items-5">
+                <h2 class="items__title title">В карточках (в ряд)</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        flex: 0 0 33.333%;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+                </pre>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/1300x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/400x600.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                        </div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/800x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="items-6">
+                <h2 class="items__title title">В карточках (в ряд) ПО ЗМІСТУ У ТЕКСТОВОМУ БЛОЦІ А НЕ ПО РОЗМІРУ ЗОБРАЖЕННЯ</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        flex: 0 0 33.333%;
+        position: relative;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+                </pre>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/1300x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/400x600.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                        </div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/800x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="items-7">
+                <h2 class="items__title title">В карточках (в ряд) ПО ЗМІСТУ У ТЕКСТОВОМУ БЛОЦІ А НЕ ПО РОЗМІРУ ЗОБРАЖЕННЯ</h2>
+                <h2 class="items__title title">ЯКЩО ЗМІСТУ ЗОВСІМ МАЛО</h2>
+                <pre>
+    Style for parent
+    .cards__image {
+        flex: 0 0 33.333%;
+        position: relative;
+        min-height: 150px;
+    }
+    Style for img
+    .cards__image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+                </pre>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/1300x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/400x600.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <!-- <div class="items__text">
+                            
+                        </div> -->
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/800x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="items-8">
+                <h2 class="items__title title">В карточках (в ряд) ДЛЯ ІНТЕРНЕТ ЕКСПЛОРЕРА</h2>
+                <h2 class="items__title title">ДОДАЄМО ДО БАТЬКІВСЬКОГО ЕЛЕМЕНТУ КЛАС ibg та використовуючи javascript на льоту замінюємо зображення з тегу img на вміст властивості background-image</h2>
+                <pre>
+    &ltdiv class="items__image ibg"&gt
+        &ltimg src="img/1300x400.jpg" alt=""&gt
+    &lt/div&gt
+
+    Style for parent
+    .cards__image {
+        flex: 0 0 33.333%;
+        min-height: 150px;
+    }
+    .ibg {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+
+    Style for img
+    .ibg img {
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+      }      
+                </pre>
+                <h2 class="items__title title">ПІДКЛЮЧАЄМО JAVASCRIPT І ТАМ ДОДАЄМО ФУНКЦІЮ:</h2>
+                <pre>
+    function ibg(){
+
+        let ibg=document.querySelectorAll(".ibg");
+            for (var i = 0; i < ibg.length; i++) {
+                if(ibg[i].querySelector('img')){
+                    ibg[i].style.backgroundImage = 'url('+ibg[i].querySelector('img').getAttribute('src')+')';
+                }
+            }
+    }
+                        
+    ibg();
+                </pre>
+                <div class="items__item">
+                    <div class="items__image ibg">
+                        <img src="img/1300x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image ibg">
+                        <img src="img/400x600.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image ibg">
+                        <img src="img/800x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page__section conteiner page__section-7">
+                <h2 class="text__title title">В тексті</h2>
+                <h2 class="text__title title">Using &ltpicture&gt and &ltsource&gt. При різних розмірах екрану підключатись буде те зображення яке відповідає розмірам, вказаним в атрибуті media="" тегу source</h2>
+                <pre>
+
+     &ltdiv class="text__image">
+        &ltpicture>
+            &ltsource srcset="/img/1300x400.jpg" type="image/jpeg" media="(min-width:1330px)">
+            &ltsource srcset="/img/800x400.jpg" type="image/jpeg" media="(min-width:992px)">
+            &ltsource srcset="/img/400x600.jpg" type="image/jpeg" media="(max-width:992px)">
+            &ltimg src="/img/1300x400.jpg" alt="">
+        &lt/picture>
+    &lt/div>
+
+                </pre>
+                <div class="text__image">
+                    <picture>
+                        <source srcset="/img/1300x400.jpg" type="image/jpeg" media="(min-width:1330px)">
+                        <source srcset="/img/800x400.jpg" type="image/jpeg" media="(min-width:992px)">
+                        <source srcset="/img/400x600.jpg" type="image/jpeg" media="(max-width:992px)">
+                        <img src="/img/1300x400.jpg" alt="">
+                    </picture>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae cumque optio assumenda tenetur, pariatur harum nihil excepturi numquam dicta odit repellendus nisi fugit, reiciendis architecto dignissimos laboriosam ducimus a? Doloremque consequuntur sed repellat blanditiis adipisci unde quae commodi quasi earum, quos porro fugit culpa eius, natus illum sapiente sunt rem!</p>
+                <div class="text__image">
+                    <img src="/img/800x400.jpg" alt="">
+                </div>
+            </section>
+
+            <section class="items-9">
+                <h2 class="items__title title">тут буде виводитись зображення формату webp, яке підключене за допомогою тега source, а якщо браузер не підтримає цей формат, то зображення вказане в тегу img</h2>
+                <pre>
+    &ltdiv class="text__image">
+        &ltpicture>
+            &ltsource srcset="/img/3.webp" type="image/webp">
+            &ltimg src="/img/sweet-2.jpg" alt="">
+        &lt/picture>
+    &lt/div>
+                </pre>
+                <div class="items__item">
+                    <div class="items__image">
+                        <picture>
+                            <source srcset="/img/3.webp" type="image/webp">
+                            <img src="/img/sweet-2.jpg" alt="">
+                        </picture>
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/400x600.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.
+                        </div>
+                    </div>
+                </div>
+                <div class="items__item">
+                    <div class="items__image">
+                        <img src="img/800x400.jpg" alt="">
+                    </div>
+                    <div class="items__body">
+                        <div class="items__label">Заголовок</div>
+                        <div class="items__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quam tempore ea animi quo nemo quasi quaerat voluptatem magni perferendis sequi distinctio veritatis, accusantium, unde modi repellendus nostrum ut fuga.</div>
+                    </div>
+                </div>
+            </section>
+
+            
     
         </main>
     

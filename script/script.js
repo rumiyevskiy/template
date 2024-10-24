@@ -159,9 +159,7 @@ function setupSwitcher() {
 
 function setupScheme() {
   const savedScheme = getSavedScheme();
-  console.log('savedScheme: ', savedScheme);
   const systemScheme = getSystemScheme();
-  console.log('systemScheme: ', systemScheme);
 
   if (savedScheme === null) return;
 
@@ -223,3 +221,16 @@ function clearScheme() {
 setupSwitcher();
 setupScheme();
 
+// для Інтернет експлорера
+
+function ibg(){
+
+  let ibg=document.querySelectorAll(".ibg");
+    for (var i = 0; i < ibg.length; i++) {
+      if(ibg[i].querySelector('img')){
+        ibg[i].style.backgroundImage = 'url('+ibg[i].querySelector('img').getAttribute('src')+')';
+      }
+    }
+}
+  
+ibg();
